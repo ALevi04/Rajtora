@@ -7,7 +7,7 @@ void buttonInit() {
   pinMode(11, INPUT_PULLUP);
   pinMode(12, INPUT_PULLUP);
 }
-void buttonPerform() {
+void buttonPerform(bool started) {
   for (int i = 0; i < 3; i++) {
     int port = buttons[i];
     long pressedAt = pressed[i];
@@ -17,8 +17,8 @@ void buttonPerform() {
         Serial.println("long");
         //press & hold actions
         switch (port) {
-          case 10: changeBright(); break;
-          case 11: changeColor(); break;
+          case 10: changeBright(); break; //works allways
+          case 11: changeColor(); break; //works allways
           case 12: break;
         }
         pressedAt = 0;
@@ -27,11 +27,11 @@ void buttonPerform() {
     }
     else if (!stateRead(port) && pressedAt != 0 && !isClicked) {
       Serial.println("short");
-      //click action
+      //click actions
       switch (port) {
-        case 10: timePlus(); break;
-        case 11: timeMinus(); break;
-        case 12: startStop(); break;
+        case 10: if(!started){timePlus();}; break; //only works if not started
+        case 11: if(!started){timeMinus();}; break; //only works if not started
+        case 12: startStop(); break; //works allways
       }
       pressedAt = 0;
     }
@@ -59,7 +59,7 @@ void timeMinus() {
 void changeColor() {
   c++;
   if (c == 3) {
-    c == 0;
+    c = 0;
   }
 }
 void changeBright() {
@@ -67,6 +67,7 @@ void changeBright() {
     bright = 0;
   }
   bright = bright + 25;
+  Serial.println(bright);
   displayBright(bright);
 }
 void startStop() {

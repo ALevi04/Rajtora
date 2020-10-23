@@ -1,49 +1,44 @@
-int beep = 0;
-int jackInput =A0;
+int buzzer = 0;
+int speaker = A0;
 int freq = 500;
-int freqJack = 2500;
-int isJack =A1;
+int speakerFreq = 2500;
+int isPlugged = A1;
 void beepInit() {
-  pinMode(beep, OUTPUT);
-  noTone(beep);
-  digitalWrite(beep,LOW);
-  pinMode(jackInput,OUTPUT);
-  pinMode(isJack, INPUT_PULLUP);
+  pinMode(buzzer, OUTPUT);
+  tone(buzzer, freq);
+  delay(300);
+  noTone(buzzer);
+  pinMode(speaker, OUTPUT);
+  pinMode(isPlugged, INPUT_PULLUP);
 }
 
 void beepShort() {
-int courFreq;
-int courPort;
-if(digitalRead(isJack)== 0){
- courFreq =freq;
- courPort = beep; 
+  if (isPlugged) {
+    tone(speaker, speakerFreq);
   }
-  else{
- courFreq =freqJack;
- courPort = jackInput;    
-    }
- tone(courPort,courFreq);
-delay(300);
-noTone(courPort);
+  else {
+    tone(buzzer, freq);
+  }
+  finishTone(300, millis());
 }
 
 void beepLong() {
-int courFreq;
-int courPort;
-if(digitalRead(isJack)== 0){
- courFreq =freq;
- courPort = beep; 
+  if (isPlugged) {
+    tone(speaker, speakerFreq);
   }
-  else{
- courFreq =freqJack;
- courPort = jackInput;    
-    }
- tone(courPort,courFreq);
-delay(800);
-noTone(courPort);}
+  else {
+    tone(buzzer, freq);
+  }
+  finishTone(800, millis());
+}
 
-void beepBtn(){
-   tone(beep,500);
-delay(100);
-noTone(beep);
+void beepBtn() {
+  tone(buzzer, freq);
+  finishTone(800, millis());
+}
+void finishTone(int delay, long pressedMillis) {
+  if (millis() - pressedMillis > delay) {
+    noTone(buzzer);
+    noTone(speaker);
   }
+}

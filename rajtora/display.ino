@@ -39,6 +39,13 @@ void displayInit() {
   for (int i = 0; i < 6; i++) {
     digit[i].begin();
 }
+displayBright(50);
+displayShow(88888,0);
+delay(1000);
+displayShow(88888,1);
+delay(1000);
+displayShow(88888,2);
+delay(1000);
 }
 
 void showDigit(int num, int pos, int c) {
@@ -91,6 +98,7 @@ void displayShow(long time, int c) {
   points.show();
   char buf[10];
   sprintf(buf, "%5d", time);
+ // Serial.println(buf);
   for (int i = 0; i < 5; i++) {
     if (buf[i] == ' ') {
       buf[i] = 10; // space
