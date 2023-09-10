@@ -10,7 +10,7 @@ It works with NeoPixel leds, which is implemented in to a  custom build frame.
 
 <img src="/docs/full_painted.jpg" width="300">
 
-<img src="/docs/test_pcb.jpg" width="300">
+<img src="/docs/test_pcb.jpeg" width="300">
 
 <img src="/docs/pcb1.png" width="300">
 
